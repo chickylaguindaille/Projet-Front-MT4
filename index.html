@@ -58,14 +58,16 @@
 
         function onClick(event) {
             let a = '';
+            let b = 'Nombre de post(s) : ';
             let post = parseInt(elInput.value) + 1;
+
             for (let i = 1; i < post; i++) {
 
                 fetch('https://jsonplaceholder.typicode.com/todos/' + i)
                     .then(response => response.json())
                     // .then(json => console.log(json.title))
                     .then(json => a = a + 'Titre ' + i +' : '+ json.title +'<br><br>')
-                    .then(json => message.innerHTML = a)
+                    .then(json => message.innerHTML = b + i +'<br><br>' + a)
 
             }
         }
