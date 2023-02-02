@@ -65,8 +65,8 @@
                     .then(response => response.json())
 <<<<<<< Updated upstream
                     // .then(json => console.log(json.title))
-                    .then(json => a = a + json.title +'<br>')
-                    .then(json => message.textContent = a)
+                    .then(json => a = a + 'Titre ' + i +' : '+ json.title +'<br><br>')
+                    .then(json => message.innerHTML = a)
 
 =======
                     .then(json => message.textContent = json.title + "//")
