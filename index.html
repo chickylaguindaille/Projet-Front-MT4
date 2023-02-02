@@ -62,34 +62,35 @@
             // let b = 'Nombre de post(s) : ';
             let postNumber = parseInt(elInput.value);
             // let buttonCalculate = "<button id='calculate'>Calculer</button>";
-const api = "https://jsonplaceholder.typicode.com/posts";
-const root = document.querySelector("#root");
+            const api = "https://jsonplaceholder.typicode.com/posts";
+            const root = document.querySelector("#root");
 
-fetch(api)
-  .then(response => response.json())
-  .then(data => {
-    const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
-    posts.forEach(post => {
-      const title = post.title;
-      const titleEl = document.createElement("h2");
-      titleEl.textContent = title;
-      message.appendChild(titleEl);
+            fetch(api)
+                .then(response => response.json())
+                .then(data => {
+                    const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
+                    posts.forEach(post => {
+                        const id = post.id;
+                        const title = `Titre ${id} :` + " " + post.title;
+                        const titleEl = document.createElement("h2");
+                        titleEl.textContent = title;
+                        message.appendChild(titleEl);
 
-      const countE = [...title].reduce((acc, char) => {
-        if (char.toLowerCase() === "e") {
-          acc++;
+                        const countE = [...title].reduce((acc, char) => {
+                            if (char.toLowerCase() === "e") {
+                                acc++;
+                            }
+                            return acc;
+                        }, 0);
+
+                        const countEl = document.createElement("p");
+                        countEl.textContent = `Nombre de "e" : ${countE}`;
+                        message.appendChild(countEl);
+                    });
+                });
+
         }
-        return acc;
-      }, 0);
 
-      const countEl = document.createElement("p");
-      countEl.textContent = `Nombre de "e" : ${countE}`;
-      message.appendChild(countEl);
-    });
-  });
-
-            }
-        
 
 
         elSubmit.addEventListener('click', onClick);
