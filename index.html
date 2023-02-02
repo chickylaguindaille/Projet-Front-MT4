@@ -71,9 +71,11 @@
                 .then(data => {
                     const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
                     posts.forEach(post => {
+                        
                         const id = post.id;
                         const title = `Titre ${id} :` + " " + post.title;
                         const titleEl = document.createElement("h2");
+<<<<<<< Updated upstream
                         titleEl.textContent = title;
                         message.appendChild(titleEl);
 
@@ -88,10 +90,27 @@
                         countEl.textContent = `Nombre de "e" : ${countE}`;
                         message.appendChild(countEl);
                         sum += countE
+=======
+                        
+
+                            titleEl.textContent = title;
+                            message.appendChild(titleEl);
+    
+                            const countE = [...title].reduce((acc, char) => {
+                                if (char.toLowerCase() === "e") {
+                                    acc++;
+                                }
+                                return acc;
+                            }, 0);
+    
+                            const countEl = document.createElement("p");
+                            countEl.textContent = `Nombre de "e" : ${countE}`;
+                            message.appendChild(countEl);
+                        
+>>>>>>> Stashed changes
                     });
                     console.log(sum / postNumber);
                 });
-
         }
 
 
