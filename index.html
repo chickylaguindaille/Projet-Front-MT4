@@ -59,7 +59,6 @@
         function onClick(event) {
             let a = '';
             let b = 'Nombre de post(s) : ';
-            let
             let post = parseInt(elInput.value) + 1;
             let buttonCalculate = "<button>Calculer</button>"
             for (let i = 1; i < post; i++) {
@@ -68,13 +67,8 @@
                     .then(response => response.json())
 
                     // .then(json => console.log(json.title))
-<<<<<<< HEAD
                     .then(json => a = a + '<div> Titre ' + i +' : '+ json.title +'</div>')
                     .then(json => message.innerHTML = b + (post-1)  + "<br><br>" + a + buttonCalculate)
-=======
-                    .then(json => a = a + 'Titre ' + i +' : '+ json.title +'<br><br>')
-                    .then(json => message.innerHTML = b + (post-1) +'<br><br>' + a + +'<br><br> Le nombre de "e" <br><br>')
->>>>>>> main
 
             }
             
