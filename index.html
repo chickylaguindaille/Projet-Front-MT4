@@ -48,7 +48,6 @@
 
         // 1.
         let value = '';
-        let a = '';
 
         function eventInput(event) {
            let value = event.data;
@@ -58,6 +57,7 @@
         elInput.addEventListener('input', eventInput);
 
         function onClick(event) {
+            let a = '';
             let post = parseInt(elInput.value) + 1;
             for (let i = 1; i < post; i++) {
 
