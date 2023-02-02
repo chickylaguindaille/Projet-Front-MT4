@@ -89,7 +89,8 @@
               sum += countE;
             });
             let sumE = sum / postNumber;
-            textSum.textContent = `La moyenne des lettres de l'occurrence e pour tous ces titres est de ${sumE}`;
+            let sumTxt = sumE.toFixed(2);
+            textSum.textContent = `La moyenne des lettres de l'occurrence e pour tous ces titres est de ${sumTxt}`;
           });
       }
 
