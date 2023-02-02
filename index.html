@@ -9,6 +9,7 @@
         html {
             font-family: sans-serif;
         }
+
         body {
             width: 50%;
             max-width: 800px;
@@ -41,7 +42,7 @@
     </div>
     <script>
 
-
+        const api = "https://jsonplaceholder.typicode.com/posts";
         let elInput = document.getElementById('post');
         let elSubmit = document.querySelector('.submitPost');
         let message = document.querySelector('.message');
@@ -50,8 +51,8 @@
         let value = '';
 
         function eventInput(event) {
-           let value = event.data;
-           console.log("valeur : " + value);
+            let value = event.data;
+            console.log("valeur : " + value);
         }
 
         elInput.addEventListener('input', eventInput);
@@ -66,13 +67,20 @@
 
             for (let i = 1; i < post; i++) {
 
-                fetch('https://jsonplaceholder.typicode.com/todos/' + i)
+            // let b = 'Nombre de post(s) : ';
+            let postNumber = parseInt(elInput.value);
+            // let buttonCalculate = "<button id='calculate'>Calculer</button>";
+                fetch(api)
                     .then(response => response.json())
                     .then(json => myArray.push([i, json.title]))
                     .then(json => a = a + '<div> Titre ' + i +' : '+ json.title+'</div>')
                     .then(json => message.innerHTML = b + (post-1)  + "<br><br>" + a + '<br><br>Calculer le nombre de "e"<br><br>'+ buttonCalculate)
                     .then(json => json.title = test)
 
+                            console.log(`Nombre de "e" : ${countE}`);
+                            
+                        });
+                    });
             }
             console.log(myArray);
             // for (let i = 1; i < post; i++) {
@@ -87,7 +95,13 @@
 
 
 
-        
+
+
+
+
+
+
     </script>
 </body>
+
 </html>
