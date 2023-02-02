@@ -64,6 +64,10 @@
         // let buttonCalculate = "<button id='calculate'>Calculer</button>";
         const api = "https://jsonplaceholder.typicode.com/posts";
         const root = document.querySelector("#root");
+        // reset input value
+        elInput.value = "";
+        // reset message content
+        message.textContent = "";
 
         fetch(api)
           .then((response) => response.json())
