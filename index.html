@@ -1,48 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exercice 1 : Nombre de caractères</title>
     <style>
-        html {
-            font-family: sans-serif;
-        }
+      html {
+        font-family: sans-serif;
+      }
 
-        body {
-            width: 50%;
-            max-width: 800px;
-            min-width: 480px;
-            margin: 0 auto;
-        }
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
 
-        .result {
-            color: palevioletred;
-            padding: 3px;
-        }
+      .result {
+        color: palevioletred;
+        padding: 3px;
+      }
 
-        .warning {
-            color: purple;
-            padding: 3px;
-        }
+      .warning {
+        color: purple;
+        padding: 3px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Nombre de e dans chaque titre de post</h1>
     <p>Formulaire de saisie</p>
     <div class="form">
-        <label for="post">Nombre de post(s): </label>
-        <input type="number" id="post" class="post">
-        <input type="submit" value="Calculer" class="submitPost">
+      <label for="post">Nombre de post(s): </label>
+      <input type="number" id="post" class="post" />
+      <input type="submit" value="Calculer" class="submitPost" />
     </div>
     <div>
-        <p class="message"></p>
+      <p class="message"></p>
+      <p class="sumofE"></p>
     </div>
     <script>
+      const api = "https://jsonplaceholder.typicode.com/posts";
+      let elInput = document.getElementById("post");
+      let elSubmit = document.querySelector(".submitPost");
+      let message = document.querySelector(".message");
+      let textSum = document.querySelector(".sumofE");
 
+      // 1.
+      let value = "";
+
+      function eventInput(event) {
+        let value = event.data;
+        console.log("valeur : " + value);
+      }
+
+      elInput.addEventListener("input", eventInput);
+
+      function onClick(event) {
+        // let b = 'Nombre de post(s) : ';
+        let postNumber = parseInt(elInput.value);
+        let sum = 0;
+        // let buttonCalculate = "<button id='calculate'>Calculer</button>";
         const api = "https://jsonplaceholder.typicode.com/posts";
+<<<<<<< HEAD
         let elInput = document.getElementById('post');
         let elSubmit = document.querySelector('.submitPost');
         let message = document.querySelector('.message');
@@ -127,7 +148,46 @@
 
 
 
-    </script>
-</body>
+=======
+        const root = document.querySelector("#root");
+        // reset input value
+        elInput.value = "";
+        // reset message content
+        message.textContent = "";
 
+        fetch(api)
+          .then((response) => response.json())
+          .then((data) => {
+            const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
+            posts.forEach((post) => {
+              const id = post.id;
+              const title = `Titre ${id} :` + " " + post.title;
+              const titleEl = document.createElement("h2");
+              titleEl.textContent = title;
+              message.appendChild(titleEl);
+
+              const countE = [...title].reduce((acc, char) => {
+                if (char.toLowerCase() === "e") {
+                  acc++;
+                }
+                return acc;
+              }, 0);
+
+              const countEl = document.createElement("p");
+              countEl.textContent = `Nombre de "e" : ${countE}`;
+              message.appendChild(countEl);
+              sum += countE;
+            });
+            let sumE = sum / postNumber;
+            let sumTxt = sumE.toFixed(2);
+            textSum.textContent = `La moyenne des lettres de l'occurrence e pour tous ces titres est de ${sumTxt}`;
+          });
+      }
+
+      elSubmit.addEventListener("click", onClick);
+
+      // 2.
+>>>>>>> crashTest
+    </script>
+  </body>
 </html>
