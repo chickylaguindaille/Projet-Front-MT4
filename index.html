@@ -61,16 +61,23 @@
             let b = 'Nombre de post(s) : ';
             let post = parseInt(elInput.value) + 1;
             let buttonCalculate = "<button>Calculer</button>"
+            let myArray = [];
+            let test ='';
+
             for (let i = 1; i < post; i++) {
 
                 fetch('https://jsonplaceholder.typicode.com/todos/' + i)
                     .then(response => response.json())
-
-                    // .then(json => console.log(json.title))
-                    .then(json => a = a + '<div> Titre ' + i +' : '+ json.title +'</div>')
-                    .then(json => message.innerHTML = b + (post-1)  + "<br><br>" + a + buttonCalculate)
+                    .then(json => myArray.push([i, json.title]))
+                    .then(json => a = a + '<div> Titre ' + i +' : '+ json.title+'</div>')
+                    .then(json => message.innerHTML = b + (post-1)  + "<br><br>" + a + '<br><br>Calculer le nombre de "e"<br><br>'+ buttonCalculate)
+                    .then(json => json.title = test)
 
             }
+            console.log(myArray);
+            // for (let i = 1; i < post; i++) {
+            //     message.innerHTML = myArray[1];
+            // }
             
         }
 
