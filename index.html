@@ -33,14 +33,16 @@
     <p>Formulaire de saisie</p>
     <div class="form">
         <label for="post">Nombre de post(s): </label>
-        <input type="text" id="post" class="post">
-        <input type="submit" value="Calculer" class="submitPost">
+        <input type="number" id="post" class="post">
+        <input type="submit" value="Calculer" class="submitPost" onclick="myFunction()">
     </div>
     <div>
         <p class="message"></p>
     </div>
     <script>
-        let elInput = document.querySelector('.post');
+
+
+        let elInput = document.getElementById('post');
         let elSubmit = document.querySelector('.submitPost');
         let message = document.querySelector('.message');
 
@@ -48,8 +50,19 @@
         let value = '';
 
         function eventInput(event) {
-           
-        }
+
+        // Récupérer la value dans l'input
+            let value = elInput.valueAsNumber+1;
+
+        // Exécuter l'API au submit
+                for (let i = 1; i < value; i++) {
+                    fetch('https://jsonplaceholder.typicode.com/todos/'+i)
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+                };
+
+            }
+        
 
         elInput.addEventListener('input', eventInput);
 
@@ -64,8 +77,10 @@
 
 <script>
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))
+
+
+
+
+
 
 </script>
