@@ -48,13 +48,22 @@
         let value = '';
 
         function eventInput(event) {
-           
+           let value = event.data;
+           console.log("valeur : " + value);
         }
 
         elInput.addEventListener('input', eventInput);
 
         // 2.
         function onClick(event) {
+            // console.log('le click marche');
+            let post = parseInt(elInput.value) + 1;
+            for (let i = 1; i < post; i++) {
+
+                fetch('https://jsonplaceholder.typicode.com/todos/' + i)
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+            }
         }
 
         elSubmit.addEventListener('click', onClick);
@@ -64,8 +73,11 @@
 
 <script>
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))
+// for (let i=1; i<numberPost; i++) {
+
+//     fetch('https://jsonplaceholder.typicode.com/todos/'+ i)
+//           .then(response => response.json())
+//           .then(json => console.log(json))
+// }
 
 </script>
