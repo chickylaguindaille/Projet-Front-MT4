@@ -61,6 +61,7 @@
 
             // let b = 'Nombre de post(s) : ';
             let postNumber = parseInt(elInput.value);
+            let sum = 0;
             // let buttonCalculate = "<button id='calculate'>Calculer</button>";
             const api = "https://jsonplaceholder.typicode.com/posts";
             const root = document.querySelector("#root");
@@ -86,7 +87,9 @@
                         const countEl = document.createElement("p");
                         countEl.textContent = `Nombre de "e" : ${countE}`;
                         message.appendChild(countEl);
+                        sum += countE
                     });
+                    console.log(sum / postNumber);
                 });
 
         }
