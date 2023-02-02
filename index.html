@@ -60,25 +60,15 @@
             let a = '';
             let b = 'Nombre de post(s) : ';
             let post = parseInt(elInput.value) + 1;
-<<<<<<< Updated upstream
-
-=======
-            let a = '';
-            let numberTitle = "Nombre de post:" + i;
->>>>>>> Stashed changes
+            let buttonCalculate = "<button>Calculer</button>"
             for (let i = 1; i < post; i++) {
 
                 fetch('https://jsonplaceholder.typicode.com/todos/' + i)
                     .then(response => response.json())
 
                     // .then(json => console.log(json.title))
-<<<<<<< Updated upstream
-                    .then(json => a = a + 'Titre ' + i +' : '+ json.title +'<br><br>')
-                    .then(json => message.innerHTML = b + i +'<br><br>' + a)
-=======
                     .then(json => a = a + '<div> Titre ' + i +' : '+ json.title +'</div>')
-                    .then(json => message.innerHTML = a)
->>>>>>> Stashed changes
+                    .then(json => message.innerHTML = b + (post-1)  + "<br><br>" + a + buttonCalculate)
 
             }
             
