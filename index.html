@@ -63,6 +63,7 @@
         let sum = 0;
         // let buttonCalculate = "<button id='calculate'>Calculer</button>";
         const api = "https://jsonplaceholder.typicode.com/posts";
+        const root = document.querySelector("#root");
         // reset input value
         elInput.value = "";
         // reset message content
@@ -71,7 +72,7 @@
         fetch(api)
           .then((response) => response.json())
           .then((data) => {
-            const posts = data.slice(0, postNumber);
+            const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
             posts.forEach((post) => {
               const id = post.id;
               const title = `Titre ${id} :` + " " + post.title;
