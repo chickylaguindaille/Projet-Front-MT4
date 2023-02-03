@@ -9,6 +9,7 @@
         html {
             font-family: sans-serif;
         }
+
         body {
             width: 50%;
             max-width: 800px;
@@ -32,9 +33,9 @@
     <h1>Profil de l'utilisateur</h1>
     <p>Formulaire de saisie</p>
     <div class="form">
-        <label for="post">Id de l'utilisateur): </label>
+        <!-- <label for="post">Id de l'utilisateur): </label>
         <input type="text" id="post" class="post">
-        <input type="submit" value="Calculer" class="submitPost">
+        <input type="submit" value="Calculer" class="submitPost"> -->
         <select name="users" id="users">
 
         </select>
@@ -48,80 +49,83 @@
         let message = document.querySelector('.message');
         let user_js = document.querySelector('#users');
         fetch('https://jsonplaceholder.typicode.com/users')
-                .then(response => response.json())
-                .then((data) => {
-            const users = data.slice(0, 10);
-            users.forEach((user) => {
-                const name = user.name;
-                const userName = `${name}`;
-                const userNameOption = document.createElement("option");
-                userNameOption.textContent = userName;
-                user_js.appendChild(userNameOption);
-                userNameOption.setAttribute('value', user.id);
-                // console.log(userName);
+            .then(response => response.json())
+            .then((data) => {
+                const users = data.slice(0, 10);
+                users.forEach((user) => {
+                    const name = user.name;
+                    const userName = `${name}`;
+                    const userNameOption = document.createElement("option");
+                    userNameOption.textContent = userName;
+                    user_js.appendChild(userNameOption);
+                    userNameOption.setAttribute('value', user.id);
+                    // console.log(userName);
+                })
             })
+        user_js.addEventListener('change', function () {
+            // console.log(user_js.value);
+            // fetch('https://jsonplaceholder.typicode.com/posts?userId=' + user_js.value)
+            //     .then(response => response.json())
+            //     // .then(json => console.log(json))
+            //     .then((data) => {
+            //     const posts = data.slice(0, 10);
+            //     posts.forEach((post) => {
+            //         const title = post.title;
+            //         const titleEl = document.createElement('h2');
+            //         const postBody = post.body;
+            //         const postBodyEl = document.createElement('p');
+            //         titleEl.textContent = title;
+            //         postBodyEl.textContent = postBody;
+            //         message.appendChild(titleEl);
+            //         message.appendChild(postBodyEl);
+            //     });
+            // });
+            fetch("https://jsonplaceholder.typicode.com/posts?userId=" + user_js.value)
+                .then(response => response.json())
+                .then(posts => {
+                    let postComments = {};
+                    let promises = posts.map(post =>
+                        fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+                            .then(response => response.json())
+                            .then(comments => {
+                                postComments[post.title] = comments.length;
+                            })
+                    );
+                    return Promise.all(promises).then(() => postComments);
                 })
-                user_js.addEventListener('change', function () {
-                    // console.log(user_js.value);
-                    // fetch('https://jsonplaceholder.typicode.com/posts?userId=' + user_js.value)
-                    //     .then(response => response.json())
-                    //     // .then(json => console.log(json))
-                    //     .then((data) => {
-                    //     const posts = data.slice(0, 10);
-                    //     posts.forEach((post) => {
-                    //         const title = post.title;
-                    //         const titleEl = document.createElement('h2');
-                    //         const postBody = post.body;
-                    //         const postBodyEl = document.createElement('p');
-                    //         titleEl.textContent = title;
-                    //         postBodyEl.textContent = postBody;
-                    //         message.appendChild(titleEl);
-                    //         message.appendChild(postBodyEl);
-                    //     });
-                    // });
-                    fetch("https://jsonplaceholder.typicode.com/posts?userId=" + user_js.value)
-  .then(response => response.json())
-  .then(posts => {
-    let postComments = {};
-    let promises = posts.map(post =>
-      fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
-        .then(response => response.json())
-        .then(comments => {
-          postComments[post.id] = comments.length;
-        })
-    );
-    return Promise.all(promises).then(() => postComments);
-  })
-  .then(postComments => {
-    let postsList = "";
-    let totalComments = 0;
-    for (let id in postComments) {
-      postsList += `<li>Post ${id}: ${postComments[id]} comments</li>`;
-      totalComments += postComments[id];
-    }
-    let average = totalComments / Object.keys(postComments).length;
-    document.querySelector(".message").innerHTML = postsList;
-    // document.querySelector(".message").innerHTML = `Average comments per post: ${average.toFixed(2)}`;
-  });
+                .then(postComments => {
+                    let postsList = "";
+                    let totalComments = 0;
+                    for (let name in postComments) {
+                        postsList += `<li>Titre ${name}  <p>${postComments[name]} comments</p></li>`;
+                        totalComments += postComments[name];
+                    }
+                    let average = totalComments / Object.keys(postComments).length;
+                    document.querySelector(".message").innerHTML = postsList;
+                    const averageEl = document.createElement('h2');
+                    averageEl.textContent = `Average comments per post: ${average.toFixed(2)}`;
+                    message.appendChild(averageEl);
+                });
 
-                })
+        })
 
 
         // 1.
-        let value = '';
+        // let value = '';
 
-        function eventInput(event) {
+        // function eventInput(event) {
 
-        }
+        // }
 
-        elInput.addEventListener('input', eventInput);
+        // elInput.addEventListener('input', eventInput);
 
-        // 2.
-        function onClick(event) {
-        }
+        // // 2.
+        // function onClick(event) {
+        // }
 
-        elSubmit.addEventListener('click', onClick);
+        // elSubmit.addEventListener('click', onClick);
 
     </script>
 </body>
+
 </html>
