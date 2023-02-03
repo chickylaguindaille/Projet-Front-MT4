@@ -63,92 +63,6 @@
         let sum = 0;
         // let buttonCalculate = "<button id='calculate'>Calculer</button>";
         const api = "https://jsonplaceholder.typicode.com/posts";
-<<<<<<< HEAD
-        let elInput = document.getElementById('post');
-        let elSubmit = document.querySelector('.submitPost');
-        let message = document.querySelector('.message');
-
-        // 1.
-        let value = '';
-
-        function eventInput(event) {
-            let value = event.data;
-            console.log("valeur : " + value);
-        }
-
-        elInput.addEventListener('input', eventInput);
-
-        function onClick(event) {
-
-            // let b = 'Nombre de post(s) : ';
-            let postNumber = parseInt(elInput.value);
-            let sum = 0;
-            // let buttonCalculate = "<button id='calculate'>Calculer</button>";
-            const api = "https://jsonplaceholder.typicode.com/posts";
-            const root = document.querySelector("#root");
-
-            fetch(api)
-                .then(response => response.json())
-                .then(data => {
-                    const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
-                    posts.forEach(post => {
-                        
-                        const id = post.id;
-                        const title = `Titre ${id} :` + " " + post.title;
-                        const titleEl = document.createElement("h2");
-<<<<<<< Updated upstream
-                        titleEl.textContent = title;
-                        message.appendChild(titleEl);
-
-                        const countE = [...title].reduce((acc, char) => {
-                            if (char.toLowerCase() === "e") {
-                                acc++;
-                            }
-                            return acc;
-                        }, 0);
-
-                        const countEl = document.createElement("p");
-                        countEl.textContent = `Nombre de "e" : ${countE}`;
-                        message.appendChild(countEl);
-                        sum += countE
-
-                        
-
-                            titleEl.textContent = title;
-                            message.appendChild(titleEl);
-    
-                            const countE = [...title].reduce((acc, char) => {
-                                if (char.toLowerCase() === "e") {
-                                    acc++;
-                                }
-                                return acc;
-                            }, 0);
-    
-                            const countEl = document.createElement("p");
-                            countEl.textContent = `Nombre de "e" : ${countE}`;
-                            message.appendChild(countEl);
-                        
-                    });
-                    console.log(sum / postNumber);
-                });
-        }
-
-
-
-        elSubmit.addEventListener('click', onClick);
-
-        // 2.
-
-
-
-
-
-
-
-
-
-=======
-        const root = document.querySelector("#root");
         // reset input value
         elInput.value = "";
         // reset message content
@@ -157,7 +71,7 @@
         fetch(api)
           .then((response) => response.json())
           .then((data) => {
-            const posts = data.slice(0, postNumber); // prendre 10 premiers posts seulement
+            const posts = data.slice(0, postNumber);
             posts.forEach((post) => {
               const id = post.id;
               const title = `Titre ${id} :` + " " + post.title;
@@ -186,7 +100,6 @@
       elSubmit.addEventListener("click", onClick);
 
       // 2.
->>>>>>> crashTest
     </script>
   </body>
 </html>
