@@ -39,6 +39,7 @@
 
         </select>
     </div>
+    <div class="message"></div>
     <div id="statistiques">
     </div>
     <script>
@@ -62,13 +63,47 @@
                 })
                 user_js.addEventListener('change', function () {
                     // console.log(user_js.value);
-                    fetch('https://jsonplaceholder.typicode.com/posts?userId=' + user_js.value)
-                        .then(response => response.json())
-                        .then(json => console.log(json))
-                        
-                        fetch('https://jsonplaceholder.typicode.com/posts/1/comments')
-                        .then(response => response.json())
-                        .then(json => console.log(json))
+                    // fetch('https://jsonplaceholder.typicode.com/posts?userId=' + user_js.value)
+                    //     .then(response => response.json())
+                    //     // .then(json => console.log(json))
+                    //     .then((data) => {
+                    //     const posts = data.slice(0, 10);
+                    //     posts.forEach((post) => {
+                    //         const title = post.title;
+                    //         const titleEl = document.createElement('h2');
+                    //         const postBody = post.body;
+                    //         const postBodyEl = document.createElement('p');
+                    //         titleEl.textContent = title;
+                    //         postBodyEl.textContent = postBody;
+                    //         message.appendChild(titleEl);
+                    //         message.appendChild(postBodyEl);
+                    //     });
+                    // });
+                    fetch("https://jsonplaceholder.typicode.com/posts?userId=" + user_js.value)
+  .then(response => response.json())
+  .then(posts => {
+    let postComments = {};
+    let promises = posts.map(post =>
+      fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+        .then(response => response.json())
+        .then(comments => {
+          postComments[post.id] = comments.length;
+        })
+    );
+    return Promise.all(promises).then(() => postComments);
+  })
+  .then(postComments => {
+    let postsList = "";
+    let totalComments = 0;
+    for (let id in postComments) {
+      postsList += `<li>Post ${id}: ${postComments[id]} comments</li>`;
+      totalComments += postComments[id];
+    }
+    let average = totalComments / Object.keys(postComments).length;
+    document.querySelector(".message").innerHTML = postsList;
+    // document.querySelector(".message").innerHTML = `Average comments per post: ${average.toFixed(2)}`;
+  });
+
                 })
 
 
